@@ -21,7 +21,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   vote:
-    container_name: vote-front
+    container_name: vote-frontend
     image: luffyxxsenpai/voting-vote:v1
     network_mode: host
     restart: unless-stopped
