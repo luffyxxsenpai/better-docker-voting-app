@@ -1,0 +1,60 @@
+# THIS VERSION IS TO TEST IT ON LOCALHOST USING HOST NETWORK
+services:
+  redis:
+    container_name: redis-vote
+    image: redis:alpine
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+  db:
+    container_name: postgres-vote
+    image: postgres:15-alpine
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vote
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  vote:
+    container_name: vote-front
+    image: luffyxxsenpai/voting-vote:v1
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      OPTION_A: "Cats"
+      OPTION_B: "Dogs"
+      REDIS_HOST: localhost 
+
+  worker:
+    container_name: vote-worker
+    image: luffyxxsenpai/voting-worker:v1
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: localhost  
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: vote
+      POSTGRES_PORT: 5432
+      REDIS_HOST: localhost  
+
+  result:
+    container_name: vote-result
+    image: luffyxxsenpai/voting-result:v1
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: localhost  
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: vote
+      POSTGRES_PORT: 5432
+
+volumes:
+  postgres-data:
+  redis-data:
