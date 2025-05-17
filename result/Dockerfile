@@ -1,6 +1,6 @@
 FROM node:18-slim
 
-# Install curl (optional) and ensure Yarn is available
+# Install curl and ensure Yarn is available
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/* && \
