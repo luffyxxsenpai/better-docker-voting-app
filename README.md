@@ -1,6 +1,13 @@
 # better-docker-voting-app
 
 *!!this project is created by docker.io, i have fixed some aspects of the code since its not maintained anymore!!*
+- **fixed DotNet Architecture errors on linux for local and docker builds**
+- **fixed npm dependencies errors due to versions**
+- **added feature: dynamically create postgres connection url for backend using env**
+- **removed all hardcoded values for databases and connections**
+- **made it more modular by using ENV for all the dynamic aspect of code**
+- **added option to change fix value of voting options from cat-dog to anything using env**
+
 ---
 **A distributed voting application with real-time results, built with:**
 
